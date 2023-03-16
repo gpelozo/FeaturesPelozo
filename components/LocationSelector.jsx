@@ -1,8 +1,12 @@
 import { StyleSheet, Text, View, Button, Alert } from 'react-native'
-import React from 'react'
+import { useNavigation } from '@react-navigation/native'
+import React, { useState } from 'react'
 import * as Location from "expo-location"
+import { COLORS } from "../constants/Colors"
+import MapPreview from './MapPreview'
 
 const LocationSelector = () => {
+    const navigation = useNavigation()
     const [pickedLocation, setPickedLocation] = useState("")
 
     const verifyPermissions = async () => {
@@ -34,16 +38,26 @@ const LocationSelector = () => {
             lng: location.coords.longitude,
         })
     }
+
+    const HandlePickOnMap = () => {
+        const isLocationOK = verifyPermissions()
+    }
     
   return (
-    <View>
-      <View>
-        {pickedLocation ? (
-        <Text>{pickedLocation.lat},{pickedLocation.lng}</Text>
-        ) : (
-            <Text>Esperando Ubicacion</Text>
-            )}
-      </View>
+    <View style={styles.container}>
+      <MapPreview location={pickedLocation}>
+        <Text>Ubicacion en progreso...</Text>
+      </MapPreview>
+      <Button
+      title="Obtener Ubicacion"
+      color={COLORS.PEACH_PUFF}
+      onPress={handleGetLocation} 
+      />
+      <Button
+      title="Elegir del mapa"
+      color={COLORS.LIGHT_PINK}
+      onPress={HandlePickOnMap} 
+      />
     </View>
   )
 }

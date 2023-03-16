@@ -11,11 +11,12 @@ const NewPlaceScreen = ({navigation}) => {
     const dispatch = useDispatch()
     const [title, setTitle] = useState("")
     const [image, setImage] = useState("")
+    const [location, setLocation] = useState("")
 
     const handleTitleChange = text => setTitle(text)
 
     const handleSave = () => {
-        dispatch(addPlace(title, image))
+        dispatch(addPlace(title, image, location))
         navigation.navigate("Direcciones")
     }
     return (
@@ -23,8 +24,8 @@ const NewPlaceScreen = ({navigation}) => {
             <View>
                 <Text style={styles.label}>Titulo</Text>
                 <TextInput style={styles.input} onChangeText={handleTitleChange} />
-                <ImageSelector onImage={(image) => console.log(image)} />
-                <LocationSelector onLocation={location => console.log(location)}/>
+                <ImageSelector onImage={setImage} />
+                <LocationSelector onLocation={setLocation}/>
                 <Button
                 title="Guardar direccion"
                 color={COLORS.MAROON}
