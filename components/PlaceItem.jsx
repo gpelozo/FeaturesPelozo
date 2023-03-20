@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         width: 70,
         height: 70,
         borderRadius: 35,
-        backgroundColor: COLORS.PEACH_PUFF
+        backgroundColor: COLORS.PEACH_PUFF,
     },
     info: {
         marginLeft: 25,

@@ -4,4 +4,4 @@ export default {
   BLUSH: "#da627d",
   LIGHT_PINK: "#ffa5ab",
   PEACH_PUFF: "#f9dbbd",
-};
+}

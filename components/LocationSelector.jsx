@@ -3,7 +3,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import * as Location from "expo-location"
 
-import { COLORS } from "../constants/Colors"
+import { COLORS } from "../constants"
 import MapPreview from './MapPreview'
 
 const LocationSelector = ({ onLocation, mapLocation}) => {

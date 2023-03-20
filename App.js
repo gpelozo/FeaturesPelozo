@@ -15,5 +15,9 @@ init()
 
 
 export default function App() {
-  return (<Provider store={store}><PlaceNavigator /></Provider>);
+  return (
+  <Provider store={store}>
+    <PlaceNavigator />
+    </Provider>
+    );
 }
