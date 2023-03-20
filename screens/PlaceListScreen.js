@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
-import { useSelector } from 'react-redux'
+import { StyleSheet, FlatList } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 import PlaceItem from '../components/PlaceItem'
+import * as addressAction from "../store/places.actions"
 
 const PlaceListScreen = ({navigation}) => {
     const places = useSelector(state => state.places.places)
@@ -10,17 +11,22 @@ const PlaceListScreen = ({navigation}) => {
         console.log(places)
     }, [places])
 
+    useEffect(() => {
+        dispatchEvent(addressAction.loadAddress())
+    }, [])
+
     const renderItem = ({item}) => (
         <PlaceItem
         title={item.title}
         image={item.image} 
-        address={item.address} onSelect={() => navigation.navigate("Detalle")} 
+        address={item.address} onSelect={() => navigation.navigate("Detalle", { placeId: item.id})} 
         />
     )
+    
     return (
         <FlatList
         data={places}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
         />
     )

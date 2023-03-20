@@ -1,13 +1,22 @@
 import { StyleSheet, Text, View, Button, Alert } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import React, { useState, useEffect } from 'react'
 import * as Location from "expo-location"
+
 import { COLORS } from "../constants/Colors"
 import MapPreview from './MapPreview'
 
-const LocationSelector = () => {
+const LocationSelector = ({ onLocation, mapLocation}) => {
     const navigation = useNavigation()
     const [pickedLocation, setPickedLocation] = useState("")
+    const route = useRoute()
+
+    useEffect(() => {
+        if (mapLocation) {
+            setPickedLocation(mapLocation)
+            onLocation(mapLocation)
+        }
+    }, [mapLocation])
 
     const verifyPermissions = async () => {
 
@@ -41,13 +50,17 @@ const LocationSelector = () => {
 
     const HandlePickOnMap = () => {
         const isLocationOK = verifyPermissions()
+        if(!isLocationOK) return
+
+        navigation.navigate("Map")
     }
     
   return (
     <View style={styles.container}>
-      <MapPreview location={pickedLocation}>
+      <MapPreview location={pickedLocation} style={styles.preview}>
         <Text>Ubicacion en progreso...</Text>
       </MapPreview>
+      <View style={styles.actions}>
       <Button
       title="Obtener Ubicacion"
       color={COLORS.PEACH_PUFF}
@@ -58,6 +71,7 @@ const LocationSelector = () => {
       color={COLORS.LIGHT_PINK}
       onPress={HandlePickOnMap} 
       />
+      </View>
     </View>
   )
 }
@@ -81,4 +95,8 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
     },
+    actions: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+    }
 })

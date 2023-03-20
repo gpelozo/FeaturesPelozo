@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import PlacesReducer from './places.reducer'
 
 const RootReducer = combineReducers({
-    places: PlacesReducer
+    places: PlacesReducer,
 })
 
 export default createStore(RootReducer, applyMiddleware(thunk))

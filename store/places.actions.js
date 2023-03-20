@@ -1,14 +1,16 @@
 import * as FileSystem from "expo-file-system"
 import Map from "../constants/Map"
+import { insertAddress, fetchAddress } from "../db"
 
 export const ADD_PLACE = 'ADD_PLACE'
+export const LOAD_PLACES = "LOAD_PLACES"
 
 
 export const addPlace = (title, image, location) => {
     //return { type: ADD_PLACE, payload: {title}}
-    return async dispatch => {
+    return async (dispatch) => {
         const response = await fetch(
-            ``
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${Map.API_KEY}`
         )
         if(!response.ok) {
             throw new Error(
@@ -18,7 +20,7 @@ export const addPlace = (title, image, location) => {
 
         const resData = await response.json()
 
-        if(!resData.resultas) {
+        if(!resData.results) {
             throw new Error(
                 "No se han encontrado datos para las coordenadas seleccionadas"
             )
@@ -32,8 +34,16 @@ export const addPlace = (title, image, location) => {
         try {
             FileSystem.moveAsync({
                 from: image,
-                to: Path
+                to: Path,
             })
+            const result = await insertAddress(
+                title,
+                Path,
+                address,
+                location.lat,
+                location.lng,
+            )
+            console.log(result)
         } catch (err) {
             console.log(err.message)
             throw err
@@ -41,6 +51,20 @@ export const addPlace = (title, image, location) => {
 
         dispatch({
             type: ADD_PLACE,
-            payload: {title, image: Path, lat : location.lat, lng: location.lng } })
+            payload: {title, image: Path, address, lat : location.lat, lng: location.lng
+            }
+        })
+    }
+}
+
+export const loadAddress = () => {
+    return async (dispatch) => {
+        try {
+            const result = await fetchAddress()
+            console.log(result)
+            dispatch({type: LOAD_PLACES, places: result.rows._array})
+        } catch (error) {
+            throw err
+        }
     }
 }

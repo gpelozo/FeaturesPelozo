@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import API_KEY from "../constants/Map"
 
@@ -8,9 +8,9 @@ const MapPreview = ({location, style, children}) => {
 
   return (
     <View style={{ ...styles.mapPreview, ...style}}>
-      {location ? ( <Image style={styles.mapImage} source={{uri: mapPreview}} />
+      {location ? ( <Image style={styles.mapImage} source={{uri: MapPreview}} />
   ):(
-    {children}
+    children
   )}
     </View>
   )

@@ -2,6 +2,7 @@ import React from 'react'
 import { Platform, TouchableOpacity } from 'react-native' 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Ionicons from "@expo/vector-icons/Ionicons"
+import { NavigationContainer } from '@react-navigation/native'
 
 import { COLORS } from '../constants' 
 
@@ -13,7 +14,9 @@ import MapScreen from '../screens/MapScreen'
 
 const PlaceStack = createNativeStackNavigator()
 
-const PlaceNavigator = () => (
+const PlaceNavigator = () => {
+    return(
+        <NavigationContainer> 
     <PlaceStack.Navigator
         initialRoute='Place'
         screenOptions={{
@@ -58,7 +61,9 @@ const PlaceNavigator = () => (
             options={{title: 'Mapa'}} 
         />
     </PlaceStack.Navigator>
-)
+    </NavigationContainer>
+    )
+}
 
 
 export default PlaceNavigator
