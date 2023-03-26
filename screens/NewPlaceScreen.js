@@ -14,10 +14,10 @@ const NewPlaceScreen = ({navigation, route}) => {
     const [location, setLocation] = useState()
 
     useEffect(() => {
-        console.log(route, "Nueva direccion")
+        console.log(route, "Nueva Ubicacion")
     }, [route])
 
-    const handleTitleChange = (text) => setTitle(text)
+    const handleTitleChange = text => setTitle(text)
 
     const handleSave = () => {
         dispatch(addPlace(title, image, location))
@@ -27,10 +27,10 @@ const NewPlaceScreen = ({navigation, route}) => {
         <ScrollView>
             <View style={styles.container}>
                 <Text style={styles.label}>Titulo</Text>
-                <TextInput style={styles.input} value={title} onChangeText={handleTitleChange} />
+                <TextInput style={styles.input} onChangeText={handleTitleChange} />
                 <ImageSelector onImage={setImage} />
                 <LocationSelector onLocation={setLocation}
-                mapLocation={route?.params?.mapLocation}/>
+                mapLocation={route?.params?.mapLocation} />
                 <Button
                 title="Guardar direccion"
                 color={COLORS.MAROON}

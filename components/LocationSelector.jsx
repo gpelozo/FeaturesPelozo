@@ -6,17 +6,10 @@ import * as Location from "expo-location"
 import { COLORS } from "../constants"
 import MapPreview from './MapPreview'
 
-const LocationSelector = ({ onLocation, mapLocation}) => {
-    const navigation = useNavigation({})
-    const [pickedLocation, setPickedLocation] = useState("")
-    const route = useRoute({})
-
-    useEffect(() => {
-        if (mapLocation) {
-            setPickedLocation(mapLocation)
-            onLocation(mapLocation)
-        }
-    }, [mapLocation])
+const LocationSelector = props => {
+    const navigation = useNavigation()
+    const [pickedLocation, setPickedLocation] = useState()
+    const route = useRoute()
 
     const verifyPermissions = async () => {
 
@@ -33,7 +26,7 @@ const LocationSelector = ({ onLocation, mapLocation}) => {
 
     const handleGetLocation = async () => {
         const isLocationOk = await verifyPermissions()
-        if (!isLocationOk) return
+        if (!isLocationOk) return;
         const location = await Location.getCurrentPositionAsync({
             timeout: 5000,
         })
@@ -49,28 +42,37 @@ const LocationSelector = ({ onLocation, mapLocation}) => {
     }
 
     const HandlePickOnMap = () => {
-        const isLocationOK = verifyPermissions()
-        if(!isLocationOK) return
+        const isLocationOk = verifyPermissions()
+        if(!isLocationOk) return
 
         navigation.navigate("Map")
     }
+
+    const mapLocation = route?.params?.mapLocation
     
+    useEffect(() => {
+        if (mapLocation) {
+            setPickedLocation(mapLocation)
+            props.onLocation(mapLocation)
+        }
+    }, [mapLocation])
+
   return (
     <View style={styles.container}>
       <MapPreview location={pickedLocation} style={styles.preview}>
         <Text>Ubicacion en progreso...</Text>
       </MapPreview>
       <View style={styles.actions}>
-      <Button
-      title="Obtener Ubicacion"
-      color={COLORS.PEACH_PUFF}
-      onPress={handleGetLocation} 
-      />
-      <Button
-      title="Elegir del mapa"
-      color={COLORS.LIGHT_PINK}
-      onPress={HandlePickOnMap} 
-      />
+        <Button
+        title="Obtener Ubicacion"
+        color={COLORS.PEACH_PUFF}
+        onPress={handleGetLocation} 
+        />
+        <Button
+        title="Elegir del mapa"
+        color={COLORS.LIGHT_PINK}
+        onPress={HandlePickOnMap} 
+        />
       </View>
     </View>
   )

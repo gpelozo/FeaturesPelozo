@@ -4,10 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { NavigationContainer } from '@react-navigation/native'
 
-import { COLORS } from '../constants' 
+import { COLORS } from "../constants" 
 
 // screens
-import PlaceListScreen from '../screens/PlaceListScreen'
+import PlaceListScreen from "../screens/PlaceListScreen"
 import PlaceDetailScreen from '../screens/PlaceDetailScreen'
 import NewPlaceScreen from '../screens/NewPlaceScreen'
 import MapScreen from '../screens/MapScreen'
@@ -18,14 +18,14 @@ const PlaceNavigator = () => {
     return(
         <NavigationContainer> 
     <PlaceStack.Navigator
-        initialRoute='Place'
+        initialRoute="Place"
         screenOptions={{
             headerStyle: {
-                backgroundColor: Platform.OS === 'android' ? COLORS.DARK_SIENNA : "",
+                backgroundColor: Platform.OS === "android" ? COLORS.DARK_SIENNA : "",
             },
-            headerTintColor: Platform.OS === 'android' ? 'white' : COLORS.DARK_SIENNA,
+            headerTintColor: Platform.OS === "android" ? "white" : COLORS.DARK_SIENNA,
             headerTitleStyle: {
-                fontWeight: 'bold',
+                fontWeight: "bold",
             }
         }}
     >
@@ -48,17 +48,17 @@ const PlaceNavigator = () => {
         <PlaceStack.Screen
             name="Detalle"
             component={PlaceDetailScreen}
-            options={{title: 'Detalle direccion'}} 
+            options={{title:"Detalle direccion"}} 
         />
         <PlaceStack.Screen
             name="Nuevo"
             component={NewPlaceScreen}
-            options={{title: 'Nueva direccion'}} 
+            options={{title: "Nueva direccion"}} 
         />
         <PlaceStack.Screen
             name="Map"
             component={MapScreen}
-            options={{title: 'Mapa'}} 
+            options={{title: "Mapa"}} 
         />
     </PlaceStack.Navigator>
     </NavigationContainer>

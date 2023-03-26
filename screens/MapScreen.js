@@ -3,15 +3,18 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-const initialRegion = {
-  latittude: -58.48952735259595,
-  longitude: -34.62255112718561,
-};
 
 const MapScreen = ({ navigation }) => {
   const [selectedLocation, setSelectedLocation] = useState();
 
-  const handleSelectedLocation = (event) => {
+  const initialRegion = {
+    latitude: 58.48952735259595,
+    longitude: -34.62255112718561,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  };
+
+  const handleSelectedLocation = event => {
     setSelectedLocation({
       lat: event.nativeEvent.coordinate.latitude,
       lng: event.nativeEvent.coordinate.longitude,
@@ -19,23 +22,21 @@ const MapScreen = ({ navigation }) => {
   };
 
   const handleSaveLocation = () => {
+    if(selectedLocation){
     navigation.navigate("Nuevo", {
-      mapLocation: {
-        lat: 0.06587304174900055,
-        lng: 52.24742074398264,
-      },
-    });
-  };
+      mapLocation: selectedLocation})
+    }
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={handleSaveLocation}>
-          <Ionicons name="md-save-outline" color="black" size={22} />
+          <Ionicons name="md-save-outline" color="black" size={25} />
         </TouchableOpacity>
       ),
     });
-  }, []);
+  }, [navigation, handleSaveLocation]);
 
   return (
     <MapView
