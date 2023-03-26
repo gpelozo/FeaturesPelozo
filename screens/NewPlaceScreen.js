@@ -10,8 +10,8 @@ import { addPlace } from '../store/places.actions'
 const NewPlaceScreen = ({navigation, route}) => {
     const dispatch = useDispatch()
     const [title, setTitle] = useState("")
-    const [image, setImage] = useState("")
-    const [location, setLocation] = useState("")
+    const [image, setImage] = useState()
+    const [location, setLocation] = useState()
 
     useEffect(() => {
         console.log(route, "Nueva direccion")

@@ -7,7 +7,6 @@ export const LOAD_PLACES = "LOAD_PLACES"
 
 
 export const addPlace = (title, image, location) => {
-    //return { type: ADD_PLACE, payload: {title}}
     return async (dispatch) => {
         const response = await fetch(
             `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${Map.API_KEY}`
