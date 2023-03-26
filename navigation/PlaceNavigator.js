@@ -21,7 +21,7 @@ const PlaceNavigator = () => {
         initialRoute='Place'
         screenOptions={{
             headerStyle: {
-                backgroundColor: Platform.OS === 'android' ? COLORS.DARK_SIENNA : '',
+                backgroundColor: Platform.OS === 'android' ? COLORS.DARK_SIENNA : "",
             },
             headerTintColor: Platform.OS === 'android' ? 'white' : COLORS.DARK_SIENNA,
             headerTitleStyle: {

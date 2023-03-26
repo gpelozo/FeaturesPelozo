@@ -6,13 +6,14 @@ import * as addressAction from "../store/places.actions"
 
 const PlaceListScreen = ({navigation}) => {
     const places = useSelector(state => state.places.places)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         console.log(places)
     }, [places])
 
     useEffect(() => {
-        dispatchEvent(addressAction.loadAddress())
+        dispatch(addressAction.loadAddress())
     }, [])
 
     const renderItem = ({item}) => (

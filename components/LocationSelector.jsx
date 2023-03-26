@@ -7,9 +7,9 @@ import { COLORS } from "../constants"
 import MapPreview from './MapPreview'
 
 const LocationSelector = ({ onLocation, mapLocation}) => {
-    const navigation = useNavigation()
+    const navigation = useNavigation({})
     const [pickedLocation, setPickedLocation] = useState("")
-    const route = useRoute()
+    const route = useRoute({})
 
     useEffect(() => {
         if (mapLocation) {

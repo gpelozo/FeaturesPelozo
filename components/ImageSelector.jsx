@@ -5,7 +5,7 @@ import * as ImagePicker from "expo-image-picker"
 import { COLORS } from '../constants'
 
 const ImageSelector = (props) => {
-    const [pickedUri, setPickedUri] = useState()
+    const [pickedUri, setPickedUri] = useState({})
 
     const verifyPermissions = async () => {
         const {status} = await ImagePicker.requestCameraPermissionsAsync()
